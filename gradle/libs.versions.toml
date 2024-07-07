@@ -13,6 +13,12 @@ androidx-test-junit = "1.2.0"
 compose-plugin = "1.6.11"
 junit = "4.13.2"
 kotlin = "2.0.0"
+ktorClientCore = "latest"
+okhttp = "4.12.0"
+benchmarks = "2.7.5"
+okhttpVersion = "2.7.5"
+okio = "3.9.0"
+ktorClientCoreVersion = "3.0.0-beta-1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -25,6 +31,12 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+benchmarks = { group = "com.squareup.okhttp", name = "benchmarks", version.ref = "benchmarks" }
+squareup-okhttp = { group = "com.squareup.okhttp", name = "okhttp", version.ref = "okhttpVersion" }
+okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
+ktor-ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktorClientCoreVersion" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -49,6 +49,10 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(libs.okio)
+            //implementation(libs.ktor.client.core)
+            //implementation("io.ktor:ktor-client-core:2.3.12")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
         }
     }
 }
@@ -89,4 +93,6 @@ android {
         debugImplementation(compose.uiTooling)
     }
 }
-
+dependencies {
+    //implementation(libs.ktor.ktor.client.core)
+}
