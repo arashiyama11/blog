@@ -8,11 +8,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import  okio.*
 import kotlinx.coroutines.launch
-import fetch
 
 import blog.composeapp.generated.resources.Res
 import blog.composeapp.generated.resources.compose_multiplatform
@@ -21,30 +22,30 @@ import kotlinx.coroutines.GlobalScope
 @Composable
 @Preview
 fun App() {
+  //TODO 日本語の文字化けなんとかする
+  //最悪記事を英語で?
+  var response by remember {
+    mutableStateOf("Wait...")
+  }
+  GlobalScope.launch {
+    println("start")
+    val res = getArticleMd("test.md")
+    response = res
+    println(res)
+  }
   MaterialTheme {
     var showContent by remember { mutableStateOf(false) }
-    var response by remember {
-      mutableStateOf("Wait...")
-    }
-    GlobalScope.launch {
-      println("start")
-      val res = fetch("https://api.github.com/repos/arashiyama11/blog")
-      response = res
-      println(res)
-    }
     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
       Button(onClick = { showContent = !showContent }) {
-        Text(response)
+        Text("日本語が")
       }
       AnimatedVisibility(showContent) {
         val greeting = remember { Greeting().greet() }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
           Image(painterResource(Res.drawable.compose_multiplatform), null)
-          Text("Compose: $greeting")
+          Text("こんぽーず: $response", style = TextStyle())
         }
       }
     }
   }
-  
-  
 }
