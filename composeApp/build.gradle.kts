@@ -38,7 +38,6 @@ kotlin {
   }
   
   sourceSets {
-    
     androidMain.dependencies {
       implementation(compose.preview)
       implementation(libs.androidx.activity.compose)
@@ -92,5 +91,6 @@ android {
   }
   dependencies {
     debugImplementation(compose.uiTooling)
+    implementation("com.halilibo.compose-richtext:richtext-commonmark:0.20.0")
   }
 }

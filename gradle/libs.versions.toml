@@ -20,6 +20,7 @@ benchmarks = "2.7.5"
 okhttpVersion = "2.7.5"
 okio = "3.9.0"
 ktorClientCoreVersion = "3.0.0-beta-1"
+richtextMarkdown = "1.0.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -36,6 +37,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 benchmarks = { group = "com.squareup.okhttp", name = "benchmarks", version.ref = "benchmarks" }
+richtext-markdown = { module = "com.halilibo.compose-richtext:richtext-markdown", version.ref = "richtextMarkdown" }
 squareup-okhttp = { group = "com.squareup.okhttp", name = "okhttp", version.ref = "okhttpVersion" }
 okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
 ktor-ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktorClientCoreVersion" }
