@@ -21,7 +21,6 @@ kotlin {
         outputFileName = "composeApp.js"
         devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
           static = (static ?: mutableListOf()).apply {
-            // Serve sources to debug inside browser
             add(project.projectDir.path)
           }
         }
@@ -49,8 +48,6 @@ kotlin {
       implementation(compose.ui)
       implementation(compose.components.resources)
       implementation(compose.components.uiToolingPreview)
-      implementation(libs.okio)
-      implementation(libs.kotlinx.serialization.json)
       implementation("org.jetbrains.kotlinx:kotlinx-io-core:0.4.0")
       implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
     }
@@ -91,6 +88,5 @@ android {
   }
   dependencies {
     debugImplementation(compose.uiTooling)
-    implementation("com.halilibo.compose-richtext:richtext-commonmark:0.20.0")
   }
 }

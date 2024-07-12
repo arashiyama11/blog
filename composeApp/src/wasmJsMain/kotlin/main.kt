@@ -1,14 +1,10 @@
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.window.CanvasBasedWindow
+import androidx.compose.ui.window.ComposeViewport
 import kotlinx.browser.document
-import ui.LocalLayerContainer
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-  CanvasBasedWindow(canvasElementId = "ComposeTarget") {
-    CompositionLocalProvider(LocalLayerContainer provides document.getElementById("components")!!) {
-      App()
-    }
+  ComposeViewport(document.body!!) {
+    App()
   }
 }
