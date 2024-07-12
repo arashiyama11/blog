@@ -50,6 +50,8 @@ kotlin {
       implementation(compose.components.uiToolingPreview)
       implementation("org.jetbrains.kotlinx:kotlinx-io-core:0.4.0")
       implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+      //implementation("androidx.navigation:navigation-compose:2.7.7")
+      implementation("org.jetbrains.androidx.navigation:navigation-compose:2.8.0-alpha02")
     }
   }
 }
@@ -89,4 +91,7 @@ android {
   dependencies {
     debugImplementation(compose.uiTooling)
   }
+}
+dependencies {
+  implementation(libs.androidx.navigation.compose)
 }

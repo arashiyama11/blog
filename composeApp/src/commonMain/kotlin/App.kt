@@ -8,6 +8,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.GlobalScope
@@ -19,6 +22,7 @@ import ui.jPFontFamily
 fun App() {
   MaterialTheme {
     var showContent by remember { mutableStateOf(false) }
+    val navController = rememberNavController()
     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
       Button(onClick = { showContent = !showContent }) {
         Text("click　みー", fontFamily = jPFontFamily())
