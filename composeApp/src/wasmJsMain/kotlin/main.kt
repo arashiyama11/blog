@@ -1,14 +1,9 @@
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.ComposeViewport
 import kotlinx.browser.document
 import kotlinx.browser.window
-import pages.NotFound
-import pages.Portfolio
-import pages.Profile
+import pages.*
 
 //どのhtmlをgetしてもこれが呼び出される
 //パスパラメータで表示を変える
