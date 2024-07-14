@@ -10,6 +10,10 @@ actual fun changePage(pageState: MutableState<Pages>, newPage: Pages) {
     Pages.PORTFOLIO -> "ポートフォリオ" to "portfolio"
     Pages.NOTFOUND -> "Not Found" to "not_found"
   }
-  window.history.pushState(null, title, "${window.origin}?page=$page")
+  window.history.pushState(
+    null,
+    title,
+    "${window.location.origin}${window.location.pathname}?page=$page"
+  )
   pageState.component2()(newPage)
 }
