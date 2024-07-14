@@ -1,6 +1,6 @@
 package ui
 
-import Pages
+import tools.Page
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.shrinkHorizontally
@@ -37,14 +37,14 @@ import androidx.compose.ui.unit.dp
 import tools.width
 
 @Composable
-fun LayoutBase(pageState: MutableState<Pages>, content: @Composable (PaddingValues) -> Unit) {
+fun LayoutBase(pageState: MutableState<Page>, content: @Composable (PaddingValues) -> Unit) {
   val headerHeight = 50.dp
   val maxFooterHeight = 300.dp
   val wideMode = width().dp > 600.dp
   var showSidebar by remember { mutableStateOf(wideMode) }
   val density = LocalDensity.current
   //スクロールないページ,なんとか自動判定できないものか
-  val shortPages = setOf(Pages.NOTFOUND)
+  val shortPages = setOf(Page.NOT_FOUND)
   val scrollState = remember {
     ConnectionScrollStateImpl(
       maxOffset = maxFooterHeight,

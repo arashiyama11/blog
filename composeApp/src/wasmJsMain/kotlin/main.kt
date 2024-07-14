@@ -2,6 +2,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeViewport
 import kotlinx.browser.document
 import kotlinx.browser.window
+import tools.Page
 
 //どのhtmlをgetしてもこれが呼び出される
 //パスパラメータで表示を変える
@@ -9,10 +10,10 @@ import kotlinx.browser.window
 fun main() {
   ComposeViewport(document.body!!) {
     val currentPage = when (window.location.search) {
-      "", "?page=index" -> Pages.INDEX
-      "?page=profile" -> Pages.PROFILE
-      "?page=portfolio" -> Pages.PORTFOLIO
-      else -> Pages.NOTFOUND
+      "", "?page=index" -> Page.INDEX
+      "?page=profile" -> Page.PROFILE
+      "?page=portfolio" -> Page.PORTFOLIO
+      else -> Page.NOT_FOUND
     }
     App(currentPage)
   }

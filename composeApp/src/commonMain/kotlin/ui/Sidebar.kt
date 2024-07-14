@@ -1,6 +1,6 @@
 package ui
 
-import Pages
+import tools.Page
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -22,17 +22,17 @@ import tools.changePage
 import tools.jPFontFamily
 
 @Composable
-fun Sidebar(pageState: MutableState<Pages>) {
+fun Sidebar(pageState: MutableState<Page>) {
   LazyColumn(
     modifier = Modifier.fillMaxHeight()
       .background(color = Color.LightGray).width(300.dp),
     verticalArrangement = Arrangement.spacedBy(3.dp),
     contentPadding = PaddingValues(end = 5.dp)
   ) {
-    item { sideberLink("プロフィール") { changePage(pageState, Pages.PROFILE) } }
-    item { sideberLink("ポートフォリオ") { changePage(pageState, Pages.PORTFOLIO) } }
+    item { sideberLink("プロフィール") { changePage(pageState, Page.PROFILE) } }
+    item { sideberLink("ポートフォリオ") { changePage(pageState, Page.PORTFOLIO) } }
     items(100) {
-      sideberLink("item $it") { changePage(pageState, Pages.NOTFOUND) }
+      sideberLink("item $it") { changePage(pageState, Page.NOT_FOUND) }
     }
   }
 }

@@ -1,14 +1,15 @@
 package tools
 
-import Pages
+import tools.Page
 import androidx.compose.runtime.MutableState
 import kotlinx.browser.window
 
-actual fun changePage(pageState: MutableState<Pages>, newPage: Pages) {
+actual fun changePage(pageState: MutableState<Page>, newPage: Page) {
+  if (pageState.value == newPage) return
   val (title, page) = when (newPage) {
-    Pages.INDEX, Pages.PROFILE -> "arashiyamaのプロフィール" to "profile"
-    Pages.PORTFOLIO -> "ポートフォリオ" to "portfolio"
-    Pages.NOTFOUND -> "Not Found" to "not_found"
+    Page.INDEX, Page.PROFILE -> "arashiyamaのプロフィール" to "profile"
+    Page.PORTFOLIO -> "ポートフォリオ" to "portfolio"
+    Page.NOT_FOUND -> "Not Found" to "not_found"
   }
   window.history.pushState(
     null,
