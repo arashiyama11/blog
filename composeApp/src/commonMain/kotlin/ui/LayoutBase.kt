@@ -1,5 +1,6 @@
 package ui
 
+import Pages
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.shrinkHorizontally
@@ -36,7 +37,7 @@ import androidx.compose.ui.unit.dp
 import tools.width
 
 @Composable
-fun LayoutBase(content: @Composable (PaddingValues) -> Unit) {
+fun LayoutBase(pageState: MutableState<Pages>, content: @Composable (PaddingValues) -> Unit) {
   val headerHeight = 50.dp
   val maxFooterHeight = 300.dp
   val wideMode = width().dp > 600.dp
@@ -58,13 +59,12 @@ fun LayoutBase(content: @Composable (PaddingValues) -> Unit) {
       }
     }
   }) {
-    
     if (wideMode) Row(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
       AnimatedVisibility(
         showSidebar,
         enter = expandHorizontally(), exit = shrinkHorizontally()
       ) {
-        Sidebar()
+        Sidebar(pageState)
       }
       Column(verticalArrangement = Arrangement.Top, modifier = Modifier.fillMaxHeight()) {
         Column(
@@ -98,7 +98,7 @@ fun LayoutBase(content: @Composable (PaddingValues) -> Unit) {
         showSidebar, modifier = Modifier.background(color = Color.LightGray),
         enter = expandHorizontally(), exit = shrinkHorizontally()
       ) {
-        Sidebar()
+        Sidebar(pageState)
       }
     }
   }
