@@ -9,4 +9,4 @@ import androidx.compose.ui.unit.dp
 actual fun width() = LocalConfiguration.current.screenWidthDp
 
 @Composable
-actual fun height() = LocalConfiguration.current.screenWidthDp
+actual fun height() = LocalConfiguration.current.screenHeightDp
