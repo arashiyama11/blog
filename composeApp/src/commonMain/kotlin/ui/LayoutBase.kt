@@ -43,6 +43,8 @@ fun LayoutBase(pageState: MutableState<Pages>, content: @Composable (PaddingValu
   val wideMode = width().dp > 600.dp
   var showSidebar by remember { mutableStateOf(wideMode) }
   val density = LocalDensity.current
+  //スクロールないページ,なんとか自動判定できないものか
+  val shortPages = setOf(Pages.NOTFOUND)
   val scrollState = remember {
     ConnectionScrollStateImpl(
       maxOffset = maxFooterHeight,
@@ -50,6 +52,8 @@ fun LayoutBase(pageState: MutableState<Pages>, content: @Composable (PaddingValu
       density = density,
     )
   }
+  scrollState.offsetPx =
+    if (pageState.value in shortPages) 0f else with(density) { maxFooterHeight.toPx() }
   Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
     TopAppBar(modifier = Modifier.height(headerHeight), backgroundColor = Color.Green) {
       Row {
@@ -113,9 +117,9 @@ class ConnectionScrollStateImpl(
 ) {
   private val maxOffsetPx = with(density) { maxOffset.toPx() }
   private val initialOffsetPx = with(density) { initialOffset.toPx() }
-  private var _offsetPx by mutableFloatStateOf(initialOffsetPx)
+  var offsetPx by mutableFloatStateOf(initialOffsetPx)
   val offset: Dp
-    get() = with(density) { _offsetPx.toDp() }
+    get() = with(density) { offsetPx.toDp() }
   
   val nestedScrollConnection = object : NestedScrollConnection {
     override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
@@ -136,8 +140,8 @@ class ConnectionScrollStateImpl(
   }
   
   private fun doScroll(delta: Float): Float {
-    val oldOffset = _offsetPx
-    _offsetPx = (_offsetPx + delta).coerceIn(0f, maxOffsetPx)
-    return _offsetPx - oldOffset
+    val oldOffset = offsetPx
+    offsetPx = (offsetPx + delta).coerceIn(0f, maxOffsetPx)
+    return offsetPx - oldOffset
   }
 }

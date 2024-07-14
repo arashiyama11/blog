@@ -1,7 +1,7 @@
 package pages
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,8 +13,16 @@ import tools.jPFontFamily
 @Preview
 fun Portfolio() {
   val jpFont = jPFontFamily()
-  Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-    Text("ポートフォリオページだよ", fontFamily = jpFont)
-    Text("そのうち作るよ", fontFamily = jpFont)
+  LazyColumn(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+    item {
+      Text("ポートフォリオページだよ", fontFamily = jpFont)
+    }
+    item {
+      Text("そのうち作るよ", fontFamily = jpFont)
+    }
+    
+    items(100) {
+      Text("そのうち作るよ$it", fontFamily = jpFont)
+    }
   }
 }
