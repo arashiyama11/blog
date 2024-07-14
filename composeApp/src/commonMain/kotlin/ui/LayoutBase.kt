@@ -1,8 +1,12 @@
 package ui
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.shrinkHorizontally
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -35,8 +39,8 @@ import tools.width
 fun LayoutBase(content: @Composable (PaddingValues) -> Unit) {
   val headerHeight = 50.dp
   val maxFooterHeight = 300.dp
-  val showFlag = width().dp > 600.dp
-  var showSidebar by remember { mutableStateOf(showFlag) }
+  val wideMode = width().dp > 600.dp
+  var showSidebar by remember { mutableStateOf(wideMode) }
   val density = LocalDensity.current
   val scrollState = remember {
     ConnectionScrollStateImpl(
@@ -54,14 +58,17 @@ fun LayoutBase(content: @Composable (PaddingValues) -> Unit) {
       }
     }
   }) {
-    Row(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
-      AnimatedVisibility(showSidebar) {
+    
+    if (wideMode) Row(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
+      AnimatedVisibility(
+        showSidebar,
+        enter = expandHorizontally(), exit = shrinkHorizontally()
+      ) {
         Sidebar()
       }
-      //狭いときはpaddingなし
       Column(verticalArrangement = Arrangement.Top, modifier = Modifier.fillMaxHeight()) {
         Column(
-          modifier = Modifier.padding(horizontal = if (width().dp > 500.dp) 100.dp else 0.dp)
+          modifier = Modifier.padding(horizontal = 100.dp)
             .border(2.dp, Color.LightGray, shape = RoundedCornerShape(20.dp))
             .nestedScroll(scrollState.nestedScrollConnection)
             .height(tools.height().dp - headerHeight - maxFooterHeight + scrollState.offset)
@@ -71,6 +78,27 @@ fun LayoutBase(content: @Composable (PaddingValues) -> Unit) {
         Footer(
           modifier = Modifier.fillMaxWidth().height(maxFooterHeight - scrollState.offset)
         )
+      }
+    }
+    else Box(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
+      Column(verticalArrangement = Arrangement.Top, modifier = Modifier.fillMaxHeight()) {
+        Column(
+          modifier = Modifier
+            .border(2.dp, Color.LightGray, shape = RoundedCornerShape(20.dp))
+            .nestedScroll(scrollState.nestedScrollConnection)
+            .height(tools.height().dp - headerHeight - maxFooterHeight + scrollState.offset)
+        ) {
+          content(it)
+        }
+        Footer(
+          modifier = Modifier.fillMaxWidth().height(maxFooterHeight - scrollState.offset)
+        )
+      }
+      AnimatedVisibility(
+        showSidebar, modifier = Modifier.background(color = Color.LightGray),
+        enter = expandHorizontally(), exit = shrinkHorizontally()
+      ) {
+        Sidebar()
       }
     }
   }
