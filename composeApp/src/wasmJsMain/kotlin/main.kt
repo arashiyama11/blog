@@ -4,7 +4,6 @@ import kotlinx.browser.document
 import kotlinx.browser.window
 import tools.Page
 
-//どのhtmlをgetしてもこれが呼び出される
 //パスパラメータで表示を変える
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
@@ -15,6 +14,6 @@ fun main() {
       "?page=portfolio" -> Page.PORTFOLIO
       else -> Page.NOT_FOUND
     }
-    App(currentPage)
+    App(currentPage, androidContext = null)
   }
 }

@@ -37,7 +37,11 @@ import androidx.compose.ui.unit.dp
 import tools.width
 
 @Composable
-fun LayoutBase(pageState: MutableState<Page>, content: @Composable (PaddingValues) -> Unit) {
+fun LayoutBase(
+  pageState: MutableState<Page>,
+  androidContext: Any? = null,//androidのcontext
+  content: @Composable (PaddingValues) -> Unit
+) {
   val headerHeight = 50.dp
   val maxFooterHeight = 300.dp
   val wideMode = width().dp > 600.dp
@@ -80,7 +84,8 @@ fun LayoutBase(pageState: MutableState<Page>, content: @Composable (PaddingValue
           content(it)
         }
         Footer(
-          modifier = Modifier.fillMaxWidth().height(maxFooterHeight - scrollState.offset)
+          modifier = Modifier.fillMaxWidth().height(maxFooterHeight - scrollState.offset),
+          androidContext
         )
       }
     }
@@ -95,7 +100,8 @@ fun LayoutBase(pageState: MutableState<Page>, content: @Composable (PaddingValue
           content(it)
         }
         Footer(
-          modifier = Modifier.fillMaxWidth().height(maxFooterHeight - scrollState.offset)
+          modifier = Modifier.fillMaxWidth().height(maxFooterHeight - scrollState.offset),
+          androidContext
         )
       }
       AnimatedVisibility(

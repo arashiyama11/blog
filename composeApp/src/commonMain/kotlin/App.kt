@@ -7,10 +7,12 @@ import ui.LayoutBase
 
 @Composable
 @Preview
-fun App(page: Page = Page.INDEX) {
+//contextはandroidのcontextだからここでは型が使えない
+//外部サイト遷移のandroidのアプローチ汚い気がするのでなんとかしたい
+fun App(page: Page = Page.INDEX, androidContext: Any? = null) {
   val pageState = remember { mutableStateOf(page) }
   MaterialTheme {
-    LayoutBase(pageState) {
+    LayoutBase(pageState, androidContext) {
       when (pageState.value) {
         Page.INDEX, Page.PROFILE -> Profile()
         Page.PORTFOLIO -> Portfolio()

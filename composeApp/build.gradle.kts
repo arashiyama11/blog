@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
@@ -48,10 +47,6 @@ kotlin {
       implementation(compose.ui)
       implementation(compose.components.resources)
       implementation(compose.components.uiToolingPreview)
-      implementation("org.jetbrains.kotlinx:kotlinx-io-core:0.4.0")
-      implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
-      //implementation("androidx.navigation:navigation-compose:2.7.7")
-      implementation("org.jetbrains.androidx.navigation:navigation-compose:2.8.0-alpha02")
     }
   }
 }
