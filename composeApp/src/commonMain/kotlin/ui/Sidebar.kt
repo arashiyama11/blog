@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -24,30 +25,32 @@ import androidx.compose.ui.unit.sp
 import tools.changePage
 import tools.jPFontFamily
 
+
 @Composable
 fun Sidebar(pageState: MutableState<Page>) {
+  val jpFont = jPFontFamily()
   LazyColumn(
     modifier = Modifier.fillMaxHeight()
       .background(color = Color.LightGray).width(300.dp),
     verticalArrangement = Arrangement.spacedBy(3.dp),
     contentPadding = PaddingValues(end = 5.dp)
   ) {
-    item { sidebarLink("プロフィール") { changePage(pageState, Page.PROFILE) } }
-    item { sidebarLink("ポートフォリオ") { changePage(pageState, Page.PORTFOLIO) } }
+    item { sidebarLink("プロフィール", jpFont) { changePage(pageState, Page.PROFILE) } }
+    item { sidebarLink("ポートフォリオ", jpFont) { changePage(pageState, Page.PORTFOLIO) } }
     items(100) {
-      sidebarLink("item $it") { changePage(pageState, Page.NOT_FOUND) }
+      sidebarLink("item $it", jpFont) { changePage(pageState, Page.NOT_FOUND) }
     }
   }
 }
 
 @Composable
-private fun sidebarLink(text: String, onClick: () -> Unit) = Text(
+private fun sidebarLink(text: String, font: FontFamily, onClick: () -> Unit) = Text(
   text,
   modifier = Modifier
     .fillMaxWidth()
     .clickable(onClick = onClick)
     .height(50.dp).background(Color.White, shape = RoundedCornerShape(4.dp)).wrapContentSize(),
-  fontFamily = jPFontFamily(),
+  fontFamily = font,
   textAlign = TextAlign.Center,
   fontSize = 20.sp,
   fontWeight = FontWeight.Bold
