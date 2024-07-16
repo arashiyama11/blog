@@ -1,15 +1,17 @@
 package ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.Icon
@@ -23,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import blog.composeapp.generated.resources.GitHubMark
 import blog.composeapp.generated.resources.XMark
 import blog.composeapp.generated.resources.Res
+import blog.composeapp.generated.resources.compose_multiplatform
 import org.jetbrains.compose.resources.painterResource
 import tools.jumpExternalPage
 
@@ -57,15 +60,26 @@ fun Footer(modifier: Modifier, androidContext: Any?) {
           )
         }
       }
-      Box(
+      Column(
         modifier = Modifier.fillMaxSize().weight(1f)
           .border(1.dp, Color.LightGray, shape = RoundedCornerShape(20.dp))
       ) {
+        Spacer(Modifier.weight(1f))
         Text(
-          "Copyright © 2024 arashiyama All Rights Reserved.",
-          modifier = Modifier.fillMaxSize().wrapContentSize(),
+          "Copyright © 2024 arashiyama All Rights Reserved",
+          modifier = Modifier.weight(2f).fillMaxWidth().wrapContentSize(),
           textAlign = TextAlign.Center
         )
+        
+        Row(modifier = Modifier.weight(2f).fillMaxWidth().wrapContentWidth()) {
+          Text(
+            "Powered by Compose Multiplatform",
+            modifier = Modifier,
+            textAlign = TextAlign.Center
+          )
+          Image(painterResource(Res.drawable.compose_multiplatform), "compose_multiplatform")
+        }
+        Spacer(Modifier.weight(1f))
       }
     }
   }
