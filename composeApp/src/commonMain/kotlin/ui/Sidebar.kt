@@ -9,12 +9,15 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,22 +32,23 @@ fun Sidebar(pageState: MutableState<Page>) {
     verticalArrangement = Arrangement.spacedBy(3.dp),
     contentPadding = PaddingValues(end = 5.dp)
   ) {
-    item { sideberLink("プロフィール") { changePage(pageState, Page.PROFILE) } }
-    item { sideberLink("ポートフォリオ") { changePage(pageState, Page.PORTFOLIO) } }
+    item { sidebarLink("プロフィール") { changePage(pageState, Page.PROFILE) } }
+    item { sidebarLink("ポートフォリオ") { changePage(pageState, Page.PORTFOLIO) } }
     items(100) {
-      sideberLink("item $it") { changePage(pageState, Page.NOT_FOUND) }
+      sidebarLink("item $it") { changePage(pageState, Page.NOT_FOUND) }
     }
   }
 }
 
 @Composable
-private fun sideberLink(text: String, onClick: () -> Unit) = Text(
+private fun sidebarLink(text: String, onClick: () -> Unit) = Text(
   text,
   modifier = Modifier
     .fillMaxWidth()
     .clickable(onClick = onClick)
-    .height(50.dp).background(Color.White),
+    .height(50.dp).background(Color.White, shape = RoundedCornerShape(4.dp)).wrapContentSize(),
   fontFamily = jPFontFamily(),
   textAlign = TextAlign.Center,
-  fontSize = 20.sp
+  fontSize = 20.sp,
+  fontWeight = FontWeight.Bold
 )
