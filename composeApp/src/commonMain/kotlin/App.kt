@@ -1,8 +1,8 @@
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import pages.*
 import tools.Page
+import ui.BlogTheme
 import ui.LayoutBase
 
 @Composable
@@ -11,7 +11,7 @@ import ui.LayoutBase
 //外部サイト遷移のandroidのアプローチ汚い気がするのでなんとかしたい
 fun App(page: Page = Page.INDEX, androidContext: Any? = null) {
   val pageState = remember { mutableStateOf(page) }
-  MaterialTheme {
+  BlogTheme {
     LayoutBase(pageState, androidContext) {
       when (pageState.value) {
         Page.INDEX, Page.PROFILE -> Profile()

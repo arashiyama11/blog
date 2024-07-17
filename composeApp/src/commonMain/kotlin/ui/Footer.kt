@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -50,11 +51,12 @@ fun Footer(modifier: Modifier, androidContext: Any?) =
         modifier = Modifier.fillMaxWidth().weight(3f)
           .border(width = 1.dp, color = Color.LightGray, shape = RoundedCornerShape(20.dp))
       ) {
+        Spacer(modifier = Modifier.fillMaxHeight().weight(1f))
         Column(
-          modifier = Modifier.fillMaxHeight().weight(1f),
+          modifier = Modifier.fillMaxHeight().weight(24f),
           verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-          Text(" Links", fontSize = 30.sp, fontWeight = FontWeight.Bold)
+          Text(" Links", style = MaterialTheme.typography.h3)
           linkCard("X Account", Res.drawable.XMark) {
             jumpExternalPage(
               "https://x.com/kamu_coins",
@@ -70,14 +72,14 @@ fun Footer(modifier: Modifier, androidContext: Any?) =
             Res.drawable.GitHubMark
           ) { jumpExternalPage("https://github.com/arashiyama11/blog", androidContext) }
         }
+        Spacer(modifier = Modifier.fillMaxHeight().weight(2f))
         Column(
-          modifier = Modifier.fillMaxHeight().weight(1f),
+          modifier = Modifier.fillMaxHeight().weight(24f),
           verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
           Text(
             " Contact",
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold
+            style = MaterialTheme.typography.h3
           )
           linkCard("X Direct Message", Res.drawable.XMark) {
             jumpExternalPage(
@@ -85,8 +87,10 @@ fun Footer(modifier: Modifier, androidContext: Any?) =
               androidContext
             )
           }
-          linkCard("arashiyama1120@gmail.com", Icons.Default.Email) {}
+          linkCard("arashiyama1120 @gmail.com", Icons.Default.Email) {}
         }
+        Spacer(modifier = Modifier.fillMaxHeight().weight(1f))
+        
       }
       //コピーライト
       Column(
@@ -96,15 +100,16 @@ fun Footer(modifier: Modifier, androidContext: Any?) =
         Spacer(Modifier.weight(1f))
         Text(
           "Copyright © 2024 arashiyama All Rights Reserved",
-          modifier = Modifier.weight(2f).fillMaxWidth().wrapContentSize(),
-          textAlign = TextAlign.Center
+          modifier = Modifier.weight(8f).fillMaxWidth().wrapContentSize(),
+          textAlign = TextAlign.Center,
+          style = MaterialTheme.typography.h6
         )
-        
-        Row(modifier = Modifier.weight(2f).fillMaxWidth().wrapContentWidth()) {
+        Row(modifier = Modifier.weight(8f).fillMaxWidth().wrapContentWidth()) {
           Text(
             "Powered by Compose Multiplatform",
             modifier = Modifier,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.h6
           )
           Image(painterResource(Res.drawable.compose_multiplatform), "compose_multiplatform")
         }
@@ -116,40 +121,41 @@ fun Footer(modifier: Modifier, androidContext: Any?) =
 
 @Composable
 private fun linkCard(text: String, imageRes: DrawableResource, onClick: () -> Unit) = Card(
-  modifier = Modifier.fillMaxWidth().height(36.dp)
+  modifier = Modifier.fillMaxWidth().height(42.dp)
     .border(width = 1.dp, color = Color.LightGray, shape = RoundedCornerShape(6.dp))
     .clickable { onClick() }, shape = RoundedCornerShape(6.dp), elevation = 3.dp
 ) {
-  Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceBetween) {
-    Box(modifier = Modifier.fillMaxHeight().wrapContentHeight()) {
-      Text(
-        " $text",
-        fontSize = 18.sp,
-        textAlign = TextAlign.Center,
-      )
-    }
+  Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.Start) {
     Image(
       painterResource(imageRes),
       text,
-      modifier = Modifier.height(36.dp).width(36.dp)
+      modifier = Modifier.height(42.dp).width(42.dp)
     )
+    Box(modifier = Modifier.fillMaxHeight().wrapContentHeight()) {
+      Text(
+        " $text",
+        fontSize = 16.sp,
+        fontWeight = FontWeight.ExtraBold
+      )
+    }
   }
 }
 
 @Composable
 private fun linkCard(text: String, imageRes: ImageVector, onClick: () -> Unit) = Card(
-  modifier = Modifier.fillMaxWidth().height(36.dp)
+  modifier = Modifier.fillMaxWidth().height(42.dp)
     .border(width = 1.dp, color = Color.LightGray, shape = RoundedCornerShape(6.dp))
     .clickable { onClick() }, shape = RoundedCornerShape(6.dp), elevation = 3.dp
 ) {
-  Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceBetween) {
+  Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.Start) {
+    Icon(imageRes, text, modifier = Modifier.height(42.dp).width(42.dp))
     Box(modifier = Modifier.fillMaxHeight().wrapContentHeight()) {
       Text(
         " $text",
         fontSize = 16.sp,
-        textAlign = TextAlign.Justify,
+        lineHeight = 18.sp,
+        fontWeight = FontWeight.ExtraBold
       )
     }
-    Icon(imageRes, text, modifier = Modifier.height(36.dp).width(36.dp))
   }
 }
