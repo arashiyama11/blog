@@ -22,6 +22,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -62,7 +63,10 @@ fun LayoutBase(
     TopAppBar(modifier = Modifier.height(headerHeight), backgroundColor = Color.Green) {
       Row {
         IconButton(onClick = { showSidebar = !showSidebar }) {
-          Icon(imageVector = Icons.Filled.Menu, contentDescription = null)
+          Icon(
+            imageVector = if (showSidebar) Icons.AutoMirrored.Filled.ArrowBack else Icons.Filled.Menu,
+            contentDescription = null
+          )
         }
       }
     }
