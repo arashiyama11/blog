@@ -1,7 +1,6 @@
 package tools
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.dp
 import kotlinx.browser.window
 
 @Composable

@@ -23,7 +23,7 @@ fun Profile() {
       Text("Kotlin愛してるよ", style = MaterialTheme.typography.h1)
     }
     item {
-      Text("arashiyamaだよ", style = MaterialTheme.typography.h2)
+      //Text("arashiyamaだよ", style = MaterialTheme.typography.h2)
     }
     items(100) {
       Text("- List item${it}", style = MaterialTheme.typography.body1)
