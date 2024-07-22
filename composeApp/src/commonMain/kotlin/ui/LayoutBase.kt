@@ -35,18 +35,31 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
+import androidx.compose.ui.unit.min
+import tools.onWindowResize
+import tools.webWidth
 import tools.width
 
 @Composable
 fun LayoutBase(
   pageState: MutableState<Page>,
   androidContext: Any? = null,//androidのcontext
-  content: @Composable (PaddingValues) -> Unit
+  content: @Composable (PaddingValues) -> Unit,
 ) {
   val headerHeight = 50.dp
   val maxFooterHeight = 300.dp
-  val wideMode = width().dp > 600.dp
+  val screenWidth = width().dp
+  var screenWidthState by remember { mutableStateOf(screenWidth) }
+  val wideMode = screenWidth > 800.dp
   var showSidebar by remember { mutableStateOf(wideMode) }
+  //webの画面サイズが変わったとき用。androidは画面サイズ変わるとアクティビティがしぬからいらない(多分)
+  onWindowResize {
+    val width = webWidth()?.dp ?: return@onWindowResize
+    val preWidth = screenWidthState
+    screenWidthState = width
+    if (width < preWidth) showSidebar = width > 800.dp
+  }
   val density = LocalDensity.current
   //スクロールないページ,なんとか自動判定できないものか
   val shortPages = setOf(Page.NOT_FOUND)
@@ -71,7 +84,7 @@ fun LayoutBase(
       }
     }
   }) {
-    if (wideMode) Row(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
+    if (screenWidthState > 800.dp) Row(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
       AnimatedVisibility(
         showSidebar,
         enter = expandHorizontally(), exit = shrinkHorizontally()
@@ -80,7 +93,13 @@ fun LayoutBase(
       }
       Column(verticalArrangement = Arrangement.Top, modifier = Modifier.fillMaxHeight()) {
         Column(
-          modifier = Modifier.padding(horizontal = 100.dp)
+          modifier = Modifier.padding(
+            horizontal = max(
+              0.dp, min(
+                (screenWidthState - 800.dp) / 2, 100.dp
+              )
+            )
+          )
             .border(2.dp, Color.LightGray, shape = RoundedCornerShape(20.dp))
             .nestedScroll(scrollState.nestedScrollConnection)
             .height(tools.height().dp - headerHeight - maxFooterHeight + scrollState.offset)

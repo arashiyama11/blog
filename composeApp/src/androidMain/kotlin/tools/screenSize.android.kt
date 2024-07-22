@@ -10,3 +10,4 @@ actual fun width() = LocalConfiguration.current.screenWidthDp
 
 @Composable
 actual fun height() = LocalConfiguration.current.screenHeightDp
+actual fun webWidth(): Int? = null
