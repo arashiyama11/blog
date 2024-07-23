@@ -58,7 +58,7 @@ fun LayoutBase(
     val width = webWidth()?.dp ?: return@onWindowResize
     val preWidth = screenWidthState
     screenWidthState = width
-    if (width < preWidth) showSidebar = width > 800.dp
+    if (width < preWidth && width <= 800.dp) showSidebar = false
   }
   val density = LocalDensity.current
   //スクロールないページ,なんとか自動判定できないものか
@@ -95,9 +95,7 @@ fun LayoutBase(
         Column(
           modifier = Modifier.padding(
             horizontal = max(
-              0.dp, min(
-                (screenWidthState - 800.dp) / 2, 100.dp
-              )
+              0.dp, min(screenWidthState / 4 - 200.dp, screenWidthState / 2 - 550.dp)
             )
           )
             .border(2.dp, Color.LightGray, shape = RoundedCornerShape(20.dp))
