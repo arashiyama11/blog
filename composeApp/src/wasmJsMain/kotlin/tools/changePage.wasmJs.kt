@@ -7,8 +7,9 @@ import kotlinx.browser.window
 actual fun changePage(pageState: MutableState<Page>, newPage: Page) {
   if (pageState.value == newPage) return
   val (title, page) = when (newPage) {
-    Page.INDEX, Page.PROFILE -> "arashiyamaのプロフィール" to "profile"
-    Page.PORTFOLIO -> "ポートフォリオ" to "portfolio"
+    Page.INDEX -> "home" to "index"
+    Page.PROFILE -> "profile" to "profile"
+    Page.PORTFOLIO -> "profile" to "portfolio"
     Page.NOT_FOUND -> "Not Found" to "not_found"
   }
   window.history.pushState(

@@ -17,7 +17,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import tools.changePage
@@ -27,15 +26,13 @@ import tools.changePage
 fun Sidebar(pageState: MutableState<Page>) {
   LazyColumn(
     modifier = Modifier.fillMaxHeight()
-      .background(color = Color.LightGray).width(300.dp),
+      .background(color = MaterialTheme.colors.secondary).width(300.dp),
     verticalArrangement = Arrangement.spacedBy(3.dp),
     contentPadding = PaddingValues(end = 5.dp)
   ) {
-    item { sidebarLink("プロフィール") { changePage(pageState, Page.PROFILE) } }
-    item { sidebarLink("ポートフォリオ") { changePage(pageState, Page.PORTFOLIO) } }
-    items(100) {
-      sidebarLink("item $it") { changePage(pageState, Page.NOT_FOUND) }
-    }
+    item { sidebarLink("Home") { changePage(pageState, Page.INDEX) } }
+    item { sidebarLink("Profile") { changePage(pageState, Page.PROFILE) } }
+    item { sidebarLink("Portfolio") { changePage(pageState, Page.PORTFOLIO) } }
   }
 }
 
@@ -45,7 +42,8 @@ private fun sidebarLink(text: String, onClick: () -> Unit) = Text(
   modifier = Modifier
     .fillMaxWidth()
     .clickable(onClick = onClick)
-    .height(50.dp).background(Color.White, shape = RoundedCornerShape(4.dp)).wrapContentSize(),
+    .height(50.dp).background(MaterialTheme.colors.surface, shape = RoundedCornerShape(4.dp))
+    .wrapContentSize(),
   textAlign = TextAlign.Center,
   style = MaterialTheme.typography.h6
 )

@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.BottomAppBar
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -26,7 +25,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -41,88 +39,90 @@ import org.jetbrains.compose.resources.painterResource
 import tools.jumpExternalPage
 
 @Composable
-fun Footer(modifier: Modifier, androidContext: Any?) =
-  BottomAppBar(
-    modifier = modifier,
-    backgroundColor = Color.White
+fun Footer(modifier: Modifier, androidContext: Any?) = Column(modifier = Modifier.fillMaxWidth()) {
+  Row(
+    modifier = Modifier.fillMaxWidth().weight(3f)
+      .border(
+        width = 1.dp,
+        color = MaterialTheme.colors.onBackground,
+        shape = RoundedCornerShape(20.dp)
+      )
   ) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-      Row(
-        modifier = Modifier.fillMaxWidth().weight(3f)
-          .border(width = 1.dp, color = Color.LightGray, shape = RoundedCornerShape(20.dp))
-      ) {
-        Spacer(modifier = Modifier.fillMaxHeight().weight(1f))
-        Column(
-          modifier = Modifier.fillMaxHeight().weight(24f),
-          verticalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-          Text(" Links", style = MaterialTheme.typography.h3)
-          linkCard("X Account", Res.drawable.XMark) {
-            jumpExternalPage(
-              "https://x.com/kamu_coins",
-              androidContext
-            )
-          }
-          linkCard(
-            "GitHub Profile",
-            Res.drawable.GitHubMark
-          ) { jumpExternalPage("https://github.com/arashiyama11", androidContext) }
-          linkCard(
-            "This Site's Repository",
-            Res.drawable.GitHubMark
-          ) { jumpExternalPage("https://github.com/arashiyama11/blog", androidContext) }
-        }
-        Spacer(modifier = Modifier.fillMaxHeight().weight(2f))
-        Column(
-          modifier = Modifier.fillMaxHeight().weight(24f),
-          verticalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-          Text(
-            " Contact",
-            style = MaterialTheme.typography.h3
-          )
-          linkCard("X Direct Message", Res.drawable.XMark) {
-            jumpExternalPage(
-              "https://x.com/kamu_coins",
-              androidContext
-            )
-          }
-          linkCard("arashiyama1120 @gmail.com", Icons.Default.Email) {}
-        }
-        Spacer(modifier = Modifier.fillMaxHeight().weight(1f))
-        
-      }
-      //コピーライト
-      Column(
-        modifier = Modifier.fillMaxSize().weight(1f)
-          .border(1.dp, Color.LightGray, shape = RoundedCornerShape(20.dp))
-      ) {
-        Spacer(Modifier.weight(1f))
-        Text(
-          "Copyright © 2024 arashiyama All Rights Reserved",
-          modifier = Modifier.weight(8f).fillMaxWidth().wrapContentSize(),
-          textAlign = TextAlign.Center,
-          style = MaterialTheme.typography.h6
+    Spacer(modifier = Modifier.fillMaxHeight().weight(1f))
+    Column(
+      modifier = Modifier.fillMaxHeight().weight(24f),
+      verticalArrangement = Arrangement.spacedBy(6.dp)
+    ) {
+      Text(" Links", style = MaterialTheme.typography.h3)
+      linkCard("X Account", Res.drawable.XMark) {
+        jumpExternalPage(
+          "https://x.com/kamu_coins",
+          androidContext
         )
-        Row(modifier = Modifier.weight(8f).fillMaxWidth().wrapContentWidth()) {
-          Text(
-            "Powered by Compose Multiplatform",
-            modifier = Modifier,
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.h6
-          )
-          Image(painterResource(Res.drawable.compose_multiplatform), "compose_multiplatform")
-        }
-        Spacer(Modifier.weight(1f))
       }
+      linkCard(
+        "GitHub Profile",
+        Res.drawable.GitHubMark
+      ) { jumpExternalPage("https://github.com/arashiyama11", androidContext) }
+      linkCard(
+        "This Site's Repository",
+        Res.drawable.GitHubMark
+      ) { jumpExternalPage("https://github.com/arashiyama11/blog", androidContext) }
     }
+    Spacer(modifier = Modifier.fillMaxHeight().weight(2f))
+    Column(
+      modifier = Modifier.fillMaxHeight().weight(24f),
+      verticalArrangement = Arrangement.spacedBy(6.dp)
+    ) {
+      Text(
+        " Contact",
+        style = MaterialTheme.typography.h3
+      )
+      linkCard("X Direct Message", Res.drawable.XMark) {
+        jumpExternalPage(
+          "https://x.com/kamu_coins",
+          androidContext
+        )
+      }
+      linkCard("arashiyama1120 @gmail.com", Icons.Default.Email) {}
+    }
+    Spacer(modifier = Modifier.fillMaxHeight().weight(1f))
+    
   }
+  //コピーライト
+  Column(
+    modifier = Modifier.fillMaxSize().weight(1f)
+      .border(1.dp, MaterialTheme.colors.onBackground, shape = RoundedCornerShape(20.dp))
+  ) {
+    Spacer(Modifier.weight(1f))
+    Text(
+      "Copyright © 2024 arashiyama All Rights Reserved",
+      modifier = Modifier.weight(8f).fillMaxWidth().wrapContentSize(),
+      textAlign = TextAlign.Center,
+      style = MaterialTheme.typography.h6
+    )
+    Row(modifier = Modifier.weight(8f).fillMaxWidth().wrapContentWidth()) {
+      Text(
+        "Powered by Compose Multiplatform",
+        modifier = Modifier,
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.h6
+      )
+      Image(painterResource(Res.drawable.compose_multiplatform), "compose_multiplatform")
+    }
+    Spacer(Modifier.weight(1f))
+  }
+}
 
 
 @Composable
 private fun linkCard(text: String, imageRes: DrawableResource, onClick: () -> Unit) = Card(
   modifier = Modifier.fillMaxWidth().height(42.dp)
-    .border(width = 1.dp, color = Color.LightGray, shape = RoundedCornerShape(6.dp))
+    .border(
+      width = 1.dp,
+      color = MaterialTheme.colors.onBackground,
+      shape = RoundedCornerShape(6.dp)
+    )
     .clickable { onClick() }, shape = RoundedCornerShape(6.dp), elevation = 3.dp
 ) {
   Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.Start) {
@@ -144,7 +144,11 @@ private fun linkCard(text: String, imageRes: DrawableResource, onClick: () -> Un
 @Composable
 private fun linkCard(text: String, imageRes: ImageVector, onClick: () -> Unit) = Card(
   modifier = Modifier.fillMaxWidth().height(42.dp)
-    .border(width = 1.dp, color = Color.LightGray, shape = RoundedCornerShape(6.dp))
+    .border(
+      width = 1.dp,
+      color = MaterialTheme.colors.onBackground,
+      shape = RoundedCornerShape(6.dp)
+    )
     .clickable { onClick() }, shape = RoundedCornerShape(6.dp), elevation = 3.dp
 ) {
   Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.Start) {
@@ -154,7 +158,7 @@ private fun linkCard(text: String, imageRes: ImageVector, onClick: () -> Unit) =
         " $text",
         fontSize = 16.sp,
         lineHeight = 18.sp,
-        fontWeight = FontWeight.ExtraBold
+        fontWeight = FontWeight.ExtraBold,
       )
     }
   }

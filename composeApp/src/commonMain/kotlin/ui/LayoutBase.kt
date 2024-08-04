@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -37,6 +38,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.min
+import blog.composeapp.generated.resources.Res
+import blog.composeapp.generated.resources.dark_mode
+import blog.composeapp.generated.resources.light_mode
+import org.jetbrains.compose.resources.painterResource
 import tools.onWindowResize
 import tools.webWidth
 import tools.width
@@ -44,6 +49,7 @@ import tools.width
 @Composable
 fun LayoutBase(
   pageState: MutableState<Page>,
+  isDarkTheme: MutableState<Boolean>,
   androidContext: Any? = null,//androidのcontext
   content: @Composable (PaddingValues) -> Unit,
 ) {
@@ -73,12 +79,18 @@ fun LayoutBase(
   scrollState.offsetPx =
     if (pageState.value in shortPages) 0f else with(density) { maxFooterHeight.toPx() }
   Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-    TopAppBar(modifier = Modifier.height(headerHeight), backgroundColor = Color.Green) {
-      Row {
+    TopAppBar(modifier = Modifier.height(headerHeight)) {
+      Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         IconButton(onClick = { showSidebar = !showSidebar }) {
           Icon(
             imageVector = if (showSidebar) Icons.AutoMirrored.Filled.ArrowBack else Icons.Filled.Menu,
             contentDescription = null
+          )
+        }
+        IconButton(onClick = { isDarkTheme.value = !isDarkTheme.value }) {
+          Icon(
+            painterResource(if (isDarkTheme.value) Res.drawable.light_mode else Res.drawable.dark_mode),
+            null
           )
         }
       }
@@ -114,7 +126,7 @@ fun LayoutBase(
       Column(verticalArrangement = Arrangement.Top, modifier = Modifier.fillMaxHeight()) {
         Column(
           modifier = Modifier
-            .border(2.dp, Color.LightGray, shape = RoundedCornerShape(20.dp))
+            .border(2.dp, MaterialTheme.colors.onBackground, shape = RoundedCornerShape(20.dp))
             .nestedScroll(scrollState.nestedScrollConnection)
             .height(tools.height().dp - headerHeight - maxFooterHeight + scrollState.offset)
         ) {
