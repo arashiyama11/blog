@@ -1,8 +1,9 @@
 package pages
 
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,10 +13,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import blog.composeapp.generated.resources.Res
+import blog.composeapp.generated.resources.langs
+import blog.composeapp.generated.resources.dev_tools
+import blog.composeapp.generated.resources.ints
+import org.jetbrains.compose.resources.painterResource
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun Index() {
   LazyColumn(
@@ -33,30 +39,48 @@ fun Index() {
       )
       Spacer(Modifier.height(30.dp))
       Text(
-        """筑波大学に通っている人です。
-Kotlinを愛しています。
+        """筑波大学に通っている人
+Kotlinと米津玄師が好き
 Web開発,Androidアプリ開発あたりを少しやっています。
 暇なときはAtCoderで競技プログラミングしたり、機械学習周り触ってます。
-あとバドミントンとかもやります。
-詳しくはProfileページへ""", style = MaterialTheme.typography.body1
+あとバドミントンやってます。""", style = MaterialTheme.typography.body1
       )
     }
     item { Spacer(modifier = Modifier.height(100.dp)) }
     
     item {
       Text(
-        "Skills",
+        "Tech Stack",
+        style = MaterialTheme.typography.h3,
+        textDecoration = TextDecoration.Underline
+      )
+      Text(
+        "触ったことがあるぐらいを意味します",
+        color = Color.Gray,
+        style = MaterialTheme.typography.body2
+      )
+      Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
+        Text("・Programming languages", style = MaterialTheme.typography.h5)
+      }
+      Image(painterResource(Res.drawable.langs), null)
+      Spacer(modifier = Modifier.height(20.dp))
+      Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
+        Text("・Dev tools", style = MaterialTheme.typography.h5)
+      }
+      Image(painterResource(Res.drawable.dev_tools), null)
+      Spacer(modifier = Modifier.height(20.dp))
+      
+      Text(
+        "I'm interested in",
         style = MaterialTheme.typography.h3,
         textDecoration = TextDecoration.Underline
       )
       
-      FlowRow(modifier = Modifier.fillMaxWidth()) {
-        for (i in 0..30) {
-          
-          Text("item$i")
-        }
-      }
+      Spacer(modifier = Modifier.height(20.dp))
+      
+      Image(painterResource(Res.drawable.ints), null, modifier = Modifier.fillMaxWidth())
+      Spacer(modifier = Modifier.height(20.dp))
     }
-    
+    item { Spacer(modifier = Modifier.height(100.dp)) }
   }
 }

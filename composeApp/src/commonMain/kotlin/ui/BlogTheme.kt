@@ -58,7 +58,13 @@ fun BlogTheme(isDark: Boolean, content: @Composable () -> Unit) {
       fontSize = 20.sp,
       lineHeight = 20.sp,
       letterSpacing = 0.15.sp
-    )
+    ),
+    body2 = TextStyle(
+      fontWeight = FontWeight.ExtraBold,
+      fontSize = 18.sp,
+      lineHeight = 20.sp,
+      letterSpacing = 0.15.sp
+    ),
   )
   val colors = if (isDark) Colors(
     primary = Color.Black,//

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -110,11 +111,17 @@ fun LayoutBase(
               0.dp, min(screenWidthState / 4 - 200.dp, screenWidthState / 2 - 550.dp)
             )
           )
-            .border(2.dp, Color.LightGray, shape = RoundedCornerShape(20.dp))
+            .border(2.dp, MaterialTheme.colors.onBackground, shape = RoundedCornerShape(20.dp))
             .nestedScroll(scrollState.nestedScrollConnection)
             .height(tools.height().dp - headerHeight - maxFooterHeight + scrollState.offset)
         ) {
-          content(it)
+          Row() {
+            Spacer(Modifier.fillMaxHeight().weight(1f))
+            Box(Modifier.fillMaxHeight().weight(14f)) {
+              content(it)
+            }
+            Spacer(Modifier.fillMaxHeight().weight(1f))
+          }
         }
         Footer(
           modifier = Modifier.fillMaxWidth().height(maxFooterHeight - scrollState.offset),
