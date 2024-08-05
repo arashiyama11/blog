@@ -1,4 +1,3 @@
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.*
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import pages.*
@@ -12,8 +11,7 @@ import ui.LayoutBase
 //外部サイト遷移のandroidのアプローチ汚い気がするのでなんとかしたい
 fun App(page: Page = Page.INDEX, androidContext: Any? = null) {
   val pageState = remember { mutableStateOf(page) }
-  val isD = isSystemInDarkTheme()
-  val isDarkTheme = remember { mutableStateOf(isD) }
+  val isDarkTheme = remember { mutableStateOf(true) }
   BlogTheme(isDarkTheme.value) {
     LayoutBase(pageState, isDarkTheme, androidContext) {
       when (pageState.value) {
