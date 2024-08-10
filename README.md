@@ -8,3 +8,6 @@ https://arashiyama11.github.io/blog/
 - 勢いつけないとフッター見えないのなんとかしたい
 - Webのフォント読み込み時間にwaiting表示
 - apkをpackagesとかにやる?
+
+test
+
