@@ -8,7 +8,6 @@ plugins {
   alias(libs.plugins.androidApplication)
   alias(libs.plugins.jetbrainsCompose)
   alias(libs.plugins.compose.compiler)
-  kotlin("plugin.serialization") version "2.0.10"
 }
 
 kotlin {
@@ -47,6 +46,7 @@ kotlin {
       implementation(compose.ui)
       implementation(compose.components.resources)
       implementation(compose.components.uiToolingPreview)
+      implementation(libs.kotlinx.datetime)
     }
   }
 }
@@ -86,7 +86,4 @@ android {
   dependencies {
     debugImplementation(compose.uiTooling)
   }
-}
-dependencies {
-  implementation(libs.androidx.navigation.compose)
 }
