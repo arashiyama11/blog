@@ -20,7 +20,7 @@ okhttp = "4.12.0"
 benchmarks = "2.7.5"
 okhttpVersion = "2.7.5"
 okio = "3.9.0"
-ktorClientCoreVersion = "3.0.0-beta-1"
+ktorClientCoreVersion = "3.0.0-beta-2"
 richtextMarkdown = "1.0.0"
 navigationCompose = "2.7.7"
 
