@@ -10,13 +10,14 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import blog.composeapp.generated.resources.Res
-import blog.composeapp.generated.resources.japanese
+import blog.composeapp.generated.resources.BIZUDPGothic_Regular
 import org.jetbrains.compose.resources.Font
 
 @Composable
 fun BlogTheme(isDark: Boolean, content: @Composable () -> Unit) {
+
   val typography = Typography(
-    defaultFontFamily = FontFamily(Font(resource = Res.font.japanese)),
+    defaultFontFamily = FontFamily(Font(resource = Res.font.BIZUDPGothic_Regular)),
     h1 = TextStyle(
       fontWeight = FontWeight.Bold,
       fontSize = 48.sp,
