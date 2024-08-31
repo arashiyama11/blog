@@ -39,7 +39,7 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: Distribute
+      - name: test
         run: |
           ./gradlew testDebugUnitTest
           ./gradlew testReleaseUnitTest
