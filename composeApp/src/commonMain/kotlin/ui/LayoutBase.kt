@@ -115,7 +115,7 @@ fun LayoutBase(
             .nestedScroll(scrollState.nestedScrollConnection)
             .height(tools.height().dp - headerHeight - maxFooterHeight + scrollState.offset)
         ) {
-          Row() {
+          Row {
             Spacer(Modifier.fillMaxHeight().weight(1f))
             Box(Modifier.fillMaxHeight().weight(14f)) {
               content(it)
@@ -137,7 +137,13 @@ fun LayoutBase(
             .nestedScroll(scrollState.nestedScrollConnection)
             .height(tools.height().dp - headerHeight - maxFooterHeight + scrollState.offset)
         ) {
-          content(it)
+          Row {
+            Spacer(Modifier.fillMaxHeight().weight(1f))
+            Box(Modifier.fillMaxHeight().weight(30f)) {
+              content(it)
+            }
+            Spacer(Modifier.fillMaxHeight().weight(1f))
+          }
         }
         Footer(
           modifier = Modifier.fillMaxWidth().height(maxFooterHeight - scrollState.offset),
