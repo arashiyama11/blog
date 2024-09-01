@@ -8,9 +8,8 @@
 name: publish
 
 on:
-  pull_request:
+  push:
     branches: [ "main" ]
-    types: [ closed ]
 
 
 jobs:
@@ -25,13 +24,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check if merged
-        run: |
-          if [ -z "${{ github.event.pull_request.merged_commit_sha }}" ]; then
-              echo "Pull request was not merged."
-              exit 1
-          fi
-
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -45,6 +37,12 @@ jobs:
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
+
+      - name: Test
+        run: |
+          ./gradlew testDebugUnitTest
+          ./gradlew testReleaseUnitTest
+          ./gradlew wasmJsBrowserTest
 
       - name: Distribute
         run: ./gradlew wasmJsBrowserDistribution
