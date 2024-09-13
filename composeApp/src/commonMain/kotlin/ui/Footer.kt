@@ -36,10 +36,12 @@ import blog.composeapp.generated.resources.Res
 import blog.composeapp.generated.resources.compose_multiplatform
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
-import tools.jumpExternalPage
+import tools.JumpExternalPage
+import tools.kmpLocalContext
 
 @Composable
-fun Footer(modifier: Modifier, androidContext: Any?) = Column(modifier = Modifier.fillMaxWidth()) {
+fun Footer(modifier: Modifier) = Column(modifier = Modifier.fillMaxWidth()) {
+  val jumpExternalPage=JumpExternalPage(kmpLocalContext())
   Row(
     modifier = Modifier.fillMaxWidth().weight(3f)
       .border(
@@ -55,19 +57,16 @@ fun Footer(modifier: Modifier, androidContext: Any?) = Column(modifier = Modifie
     ) {
       Text(" Links", style = MaterialTheme.typography.h3)
       linkCard("X Account", Res.drawable.XMark) {
-        jumpExternalPage(
-          "https://x.com/kamu_coins",
-          androidContext
-        )
+        jumpExternalPage("https://x.com/kamu_coins",)
       }
       linkCard(
         "GitHub Profile",
         Res.drawable.GitHubMark
-      ) { jumpExternalPage("https://github.com/arashiyama11", androidContext) }
+      ) { jumpExternalPage("https://github.com/arashiyama11") }
       linkCard(
         "This Site's Repository",
         Res.drawable.GitHubMark
-      ) { jumpExternalPage("https://github.com/arashiyama11/blog", androidContext) }
+      ) { jumpExternalPage("https://github.com/arashiyama11/blog") }
     }
     Spacer(modifier = Modifier.fillMaxHeight().weight(2f))
     Column(
@@ -79,10 +78,7 @@ fun Footer(modifier: Modifier, androidContext: Any?) = Column(modifier = Modifie
         style = MaterialTheme.typography.h3
       )
       linkCard("X Direct Message", Res.drawable.XMark) {
-        jumpExternalPage(
-          "https://x.com/kamu_coins",
-          androidContext
-        )
+        jumpExternalPage("https://x.com/kamu_coins")
       }
       linkCard("arashiyama1120 @gmail.com", Icons.Default.Email) {}
     }
@@ -142,7 +138,7 @@ private fun linkCard(text: String, imageRes: DrawableResource, onClick: () -> Un
 }
 
 @Composable
-private fun linkCard(text: String, imageRes: ImageVector, onClick: () -> Unit) = Card(
+private fun linkCard(text: String, imageRes: ImageVector, onClick:  () -> Unit) = Card(
   modifier = Modifier.fillMaxWidth().height(42.dp)
     .border(
       width = 1.dp,

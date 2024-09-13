@@ -1,5 +1,11 @@
 package tools
 
+import androidx.compose.runtime.Composable
 
-expect fun jumpExternalPage(url: String, androidContext: Any?): Boolean
 
+expect class JumpExternalPage(context:Any?){
+    operator fun invoke(url: String): Boolean
+}
+
+@Composable
+expect fun kmpLocalContext(): Any?

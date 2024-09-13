@@ -8,12 +8,11 @@ import ui.LayoutBase
 @Composable
 @Preview
 //contextはandroidのcontextだからここでは型が使えない
-//外部サイト遷移のandroidのアプローチ汚い気がするのでなんとかしたい
-fun App(page: Page = Page.INDEX, androidContext: Any? = null) {
+fun App(page: Page = Page.INDEX) {
   val pageState = remember { mutableStateOf(page) }
   val isDarkTheme = remember { mutableStateOf(true) }
   BlogTheme(isDarkTheme.value) {
-    LayoutBase(pageState, isDarkTheme, androidContext) {
+    LayoutBase(pageState, isDarkTheme) {
       when (pageState.value) {
         Page.INDEX -> Index()
         Page.PROFILE -> Profile()
