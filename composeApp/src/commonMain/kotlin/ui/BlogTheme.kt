@@ -62,8 +62,8 @@ fun BlogTheme(isDark: Boolean, content: @Composable () -> Unit) {
     ),
     body2 = TextStyle(
       fontWeight = FontWeight.ExtraBold,
-      fontSize = 18.sp,
-      lineHeight = 20.sp,
+      fontSize = 16.sp,
+      lineHeight = 24.sp,
       letterSpacing = 0.15.sp
     ),
   )
