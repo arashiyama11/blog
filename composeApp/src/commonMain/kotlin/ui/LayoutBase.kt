@@ -51,7 +51,6 @@ import tools.width
 fun LayoutBase(
   pageState: MutableState<Page>,
   isDarkTheme: MutableState<Boolean>,
-  androidContext: Any? = null,//androidのcontext
   content: @Composable (PaddingValues) -> Unit,
 ) {
   val headerHeight = 50.dp
@@ -125,7 +124,6 @@ fun LayoutBase(
         }
         Footer(
           modifier = Modifier.fillMaxWidth().height(maxFooterHeight - scrollState.offset),
-          androidContext
         )
       }
     }
@@ -145,10 +143,7 @@ fun LayoutBase(
             Spacer(Modifier.fillMaxHeight().weight(1f))
           }
         }
-        Footer(
-          modifier = Modifier.fillMaxWidth().height(maxFooterHeight - scrollState.offset),
-          androidContext
-        )
+        Footer(modifier = Modifier.fillMaxWidth().height(maxFooterHeight - scrollState.offset))
       }
       AnimatedVisibility(
         showSidebar, modifier = Modifier.background(color = Color.LightGray),

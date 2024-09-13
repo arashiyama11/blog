@@ -14,6 +14,6 @@ fun main() {
       "?page=portfolio" -> Page.PORTFOLIO
       else -> Page.NOT_FOUND
     }
-    App(currentPage, androidContext = null)
+    App(currentPage)
   }
 }
