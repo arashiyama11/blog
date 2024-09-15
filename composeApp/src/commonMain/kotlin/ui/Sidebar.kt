@@ -24,26 +24,26 @@ import tools.changePage
 
 @Composable
 fun Sidebar(pageState: MutableState<Page>) {
-  LazyColumn(
-    modifier = Modifier.fillMaxHeight()
-      .background(color = MaterialTheme.colors.secondary).width(300.dp),
-    verticalArrangement = Arrangement.spacedBy(3.dp),
-    contentPadding = PaddingValues(end = 5.dp)
-  ) {
-    item { sidebarLink("Home") { changePage(pageState, Page.INDEX) } }
-    item { sidebarLink("Profile") { changePage(pageState, Page.PROFILE) } }
-    item { sidebarLink("Portfolio") { changePage(pageState, Page.PORTFOLIO) } }
-  }
+    LazyColumn(
+        modifier = Modifier.fillMaxHeight()
+            .background(color = MaterialTheme.colors.secondary).width(300.dp),
+        verticalArrangement = Arrangement.spacedBy(3.dp),
+        contentPadding = PaddingValues(end = 5.dp)
+    ) {
+        item { sidebarLink("Home") { changePage(pageState, Page.INDEX) } }
+        item { sidebarLink("Profile") { changePage(pageState, Page.PROFILE) } }
+        //item { sidebarLink("Portfolio") { changePage(pageState, Page.PORTFOLIO) } }
+    }
 }
 
 @Composable
 private fun sidebarLink(text: String, onClick: () -> Unit) = Text(
-  text,
-  modifier = Modifier
-    .fillMaxWidth()
-    .clickable(onClick = onClick)
-    .height(50.dp).background(MaterialTheme.colors.surface, shape = RoundedCornerShape(4.dp))
-    .wrapContentSize(),
-  textAlign = TextAlign.Center,
-  style = MaterialTheme.typography.h6
+    text,
+    modifier = Modifier
+        .fillMaxWidth()
+        .clickable(onClick = onClick)
+        .height(50.dp).background(MaterialTheme.colors.surface, shape = RoundedCornerShape(4.dp))
+        .wrapContentSize(),
+    textAlign = TextAlign.Center,
+    style = MaterialTheme.typography.h6
 )
