@@ -9,5 +9,4 @@ https://arashiyama11.github.io/blog/
 - Webのフォント読み込み時間にwaiting表示
 - apkをpackagesとかにやる?
 
-test
 
