@@ -36,7 +36,6 @@ fun Profile() {
             textDecoration = TextDecoration.Underline
         )
         Spacer(Modifier.height(50.dp))
-        profileElem("Name", "Yuto Nakamura")
         profileElem("Handle name", "arashiyama or kamu")
         val birthday = LocalDate.parse("2006-02-11")
         val age = birthday.yearsUntil(Clock.System.todayIn(TimeZone.UTC))

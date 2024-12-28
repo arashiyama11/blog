@@ -52,9 +52,10 @@ import tools.width
 
 @Composable
 fun LayoutBase(
-    pageState: MutableState<Page>,
-    isDarkTheme: MutableState<Boolean>,
-    content: @Composable (PaddingValues) -> Unit,
+    onPageChange: (Page) -> Unit,
+    isDarkTheme: Boolean,
+    toggleDarkTheme: () -> Unit,
+    content: @Composable () -> Unit,
 ) {
     val headerHeight = 50.dp
     val maxFooterHeight = 300.dp
@@ -80,7 +81,7 @@ fun LayoutBase(
         )
     }
     scrollState.offsetPx =
-        if (pageState.value in shortPages) 0f else with(density) { maxFooterHeight.toPx() }
+            /*if (pageState.value in shortPages) 0f else*/ with(density) { maxFooterHeight.toPx() }
     Scaffold(modifier = Modifier.fillMaxSize().pointerInput(Unit) {
         awaitEachGesture {
             var dx = 0f
@@ -114,21 +115,23 @@ fun LayoutBase(
                         contentDescription = null
                     )
                 }
-                IconButton(onClick = { isDarkTheme.value = !isDarkTheme.value }) {
+                IconButton(onClick = toggleDarkTheme) {
                     Icon(
-                        painterResource(if (isDarkTheme.value) Res.drawable.light_mode else Res.drawable.dark_mode),
+                        painterResource(if (isDarkTheme) Res.drawable.light_mode else Res.drawable.dark_mode),
                         null
                     )
                 }
             }
         }
-    }) {
-        if (screenWidthState > 800.dp) Row(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
+    }) { paddingValues ->
+        if (screenWidthState > 800.dp) Row(
+            modifier = Modifier.fillMaxSize().padding(paddingValues)
+        ) {
             AnimatedVisibility(
                 showSidebar,
                 enter = expandHorizontally(), exit = shrinkHorizontally()
             ) {
-                Sidebar(pageState)
+                Sidebar(onPageChange)
             }
             Column(verticalArrangement = Arrangement.Top, modifier = Modifier.fillMaxHeight()) {
                 Column(
@@ -148,7 +151,7 @@ fun LayoutBase(
                     Row {
                         Spacer(Modifier.fillMaxHeight().weight(1f))
                         Box(Modifier.fillMaxHeight().weight(14f)) {
-                            content(it)
+                            content()
                         }
                         Spacer(Modifier.fillMaxHeight().weight(1f))
                     }
@@ -158,7 +161,7 @@ fun LayoutBase(
                 )
             }
         }
-        else Box(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
+        else Box(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
             Column(verticalArrangement = Arrangement.Top, modifier = Modifier.fillMaxHeight()) {
                 Column(
                     modifier = Modifier
@@ -173,7 +176,7 @@ fun LayoutBase(
                     Row {
                         Spacer(Modifier.fillMaxHeight().weight(1f))
                         Box(Modifier.fillMaxHeight().weight(30f)) {
-                            content(it)
+                            content()
                         }
                         Spacer(Modifier.fillMaxHeight().weight(1f))
                     }
@@ -186,7 +189,7 @@ fun LayoutBase(
                 showSidebar, modifier = Modifier.background(color = Color.LightGray),
                 enter = expandHorizontally(), exit = shrinkHorizontally()
             ) {
-                Sidebar(pageState)
+                Sidebar(onPageChange)
             }
         }
     }
