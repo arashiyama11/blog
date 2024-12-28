@@ -8,11 +8,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.calculatePan
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -21,7 +19,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -35,28 +32,18 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.NestedScrollSource
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.Density
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.min
 import blog.composeapp.generated.resources.Res
 import blog.composeapp.generated.resources.dark_mode
 import blog.composeapp.generated.resources.light_mode
-import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import tools.onWindowResize
 import tools.webWidth
 import tools.width
-
-import androidx.compose.material.Text
 
 @Composable
 fun LayoutBase(
@@ -71,7 +58,6 @@ fun LayoutBase(
     val wideMode = screenWidth > 800.dp
     var showSidebar by remember { mutableStateOf(wideMode) }
     val scrollState2 = rememberScrollState()
-    //webの画面サイズが変わったとき用。androidは画面サイズ変わるとアクティビティがしぬからいらない(多分)
     onWindowResize {
         val width = webWidth()?.dp ?: return@onWindowResize
         val preWidth = screenWidthState
