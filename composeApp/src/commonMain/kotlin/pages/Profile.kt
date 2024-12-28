@@ -7,9 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +25,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun Profile() {
     Column(
-        modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -36,7 +33,6 @@ fun Profile() {
             textDecoration = TextDecoration.Underline
         )
         Spacer(Modifier.height(50.dp))
-        profileElem("Name", "Yuto Nakamura")
         profileElem("Handle name", "arashiyama or kamu")
         val birthday = LocalDate.parse("2006-02-11")
         val age = birthday.yearsUntil(Clock.System.todayIn(TimeZone.UTC))
