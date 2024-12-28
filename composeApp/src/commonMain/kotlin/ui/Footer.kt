@@ -127,7 +127,7 @@ private fun ExPageLink(text: String, icon: @Composable () -> Unit, onClick: () -
         icon = icon
     ) {
         Text(
-            " $text",
+            text,
             fontSize = 16.sp,
             lineHeight = 18.sp,
             fontWeight = FontWeight.ExtraBold,
