@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.calculatePan
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,8 +19,12 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -45,10 +50,13 @@ import androidx.compose.ui.unit.min
 import blog.composeapp.generated.resources.Res
 import blog.composeapp.generated.resources.dark_mode
 import blog.composeapp.generated.resources.light_mode
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import tools.onWindowResize
 import tools.webWidth
 import tools.width
+
+import androidx.compose.material.Text
 
 @Composable
 fun LayoutBase(
@@ -58,11 +66,11 @@ fun LayoutBase(
     content: @Composable () -> Unit,
 ) {
     val headerHeight = 50.dp
-    val maxFooterHeight = 300.dp
     val screenWidth = width().dp
     var screenWidthState by remember { mutableStateOf(screenWidth) }
     val wideMode = screenWidth > 800.dp
     var showSidebar by remember { mutableStateOf(wideMode) }
+    val scrollState2 = rememberScrollState()
     //webの画面サイズが変わったとき用。androidは画面サイズ変わるとアクティビティがしぬからいらない(多分)
     onWindowResize {
         val width = webWidth()?.dp ?: return@onWindowResize
@@ -70,18 +78,6 @@ fun LayoutBase(
         screenWidthState = width
         if (width < preWidth && width <= 800.dp) showSidebar = false
     }
-    val density = LocalDensity.current
-    //スクロールないページ,なんとか自動判定できないものか
-    val shortPages = setOf(Page.NOT_FOUND)
-    val scrollState = remember {
-        ConnectionScrollStateImpl(
-            maxOffset = maxFooterHeight,
-            initialOffset = maxFooterHeight,
-            density = density,
-        )
-    }
-    scrollState.offsetPx =
-            /*if (pageState.value in shortPages) 0f else*/ with(density) { maxFooterHeight.toPx() }
     Scaffold(modifier = Modifier.fillMaxSize().pointerInput(Unit) {
         awaitEachGesture {
             var dx = 0f
@@ -133,36 +129,46 @@ fun LayoutBase(
             ) {
                 Sidebar(onPageChange)
             }
-            Column(verticalArrangement = Arrangement.Top, modifier = Modifier.fillMaxHeight()) {
+            Column(
+                verticalArrangement = Arrangement.Top,
+                modifier = Modifier.fillMaxHeight().verticalScroll(scrollState2)
+            ) {
                 Column(
                     modifier = Modifier.padding(
                         horizontal = max(
                             0.dp, min(screenWidthState / 4 - 200.dp, screenWidthState / 2 - 550.dp)
-                        )
+                        ),
+                        vertical = 8.dp
                     )
                         .border(
                             2.dp,
                             MaterialTheme.colors.onBackground,
                             shape = RoundedCornerShape(20.dp)
                         )
-                        .nestedScroll(scrollState.nestedScrollConnection)
-                        .height(tools.height().dp - headerHeight - maxFooterHeight + scrollState.offset)
                 ) {
                     Row {
                         Spacer(Modifier.fillMaxHeight().weight(1f))
-                        Box(Modifier.fillMaxHeight().weight(14f)) {
+                        Box(
+                            Modifier.fillMaxHeight().weight(14f)
+                                .heightIn(min = tools.height().dp - 300.dp - paddingValues.calculateTopPadding())
+                        ) {
                             content()
                         }
                         Spacer(Modifier.fillMaxHeight().weight(1f))
                     }
                 }
                 Footer(
-                    modifier = Modifier.fillMaxWidth().height(maxFooterHeight - scrollState.offset),
+                    modifier = Modifier.fillMaxWidth().height(300.dp)
                 )
             }
         }
-        else Box(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
-            Column(verticalArrangement = Arrangement.Top, modifier = Modifier.fillMaxHeight()) {
+        else Box(
+            modifier = Modifier.fillMaxSize().padding(paddingValues)
+        ) {
+            Column(
+                verticalArrangement = Arrangement.Top,
+                modifier = Modifier.fillMaxHeight().verticalScroll(scrollState2)
+            ) {
                 Column(
                     modifier = Modifier
                         .border(
@@ -170,8 +176,6 @@ fun LayoutBase(
                             MaterialTheme.colors.onBackground,
                             shape = RoundedCornerShape(20.dp)
                         )
-                        .nestedScroll(scrollState.nestedScrollConnection)
-                        .height(tools.height().dp - headerHeight - maxFooterHeight + scrollState.offset)
                 ) {
                     Row {
                         Spacer(Modifier.fillMaxHeight().weight(1f))
@@ -182,7 +186,7 @@ fun LayoutBase(
                     }
                 }
                 Footer(
-                    modifier = Modifier.fillMaxWidth().height(maxFooterHeight - scrollState.offset)
+                    modifier = Modifier.fillMaxWidth().height(300.dp)
                 )
             }
             AnimatedVisibility(
@@ -192,43 +196,5 @@ fun LayoutBase(
                 Sidebar(onPageChange)
             }
         }
-    }
-}
-
-
-@Stable
-class ConnectionScrollStateImpl(
-    maxOffset: Dp,
-    initialOffset: Dp,
-    private val density: Density,
-) {
-    private val maxOffsetPx = with(density) { maxOffset.toPx() }
-    private val initialOffsetPx = with(density) { initialOffset.toPx() }
-    var offsetPx by mutableFloatStateOf(initialOffsetPx)
-    val offset: Dp
-        get() = with(density) { offsetPx.toDp() }
-
-    val nestedScrollConnection = object : NestedScrollConnection {
-        override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
-            if (available.y <= 0f) return Offset.Zero
-            val consumedY = doScroll(available.y)
-            return Offset(0f, consumedY)
-        }
-
-        override fun onPostScroll(
-            consumed: Offset,
-            available: Offset,
-            source: NestedScrollSource
-        ): Offset {
-            if (available.y >= 0f) return Offset.Zero
-            val consumedY = doScroll(available.y)
-            return Offset(0f, consumedY)
-        }
-    }
-
-    private fun doScroll(delta: Float): Float {
-        val oldOffset = offsetPx
-        offsetPx = (offsetPx + delta).coerceIn(0f, maxOffsetPx)
-        return offsetPx - oldOffset
     }
 }

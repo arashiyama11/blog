@@ -37,10 +37,10 @@ import tools.JumpExternalPage
 import tools.kmpLocalContext
 
 @Composable
-fun Footer(modifier: Modifier) = Column(modifier = modifier.fillMaxWidth()) {
+fun Footer(modifier: Modifier) = Column(modifier = modifier.fillMaxSize()) {
     val jumpExternalPage = JumpExternalPage(kmpLocalContext())
     Row(
-        modifier = Modifier.fillMaxWidth().weight(3f)
+        modifier = Modifier.fillMaxWidth().height(200.dp)
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colors.onBackground,
@@ -89,7 +89,7 @@ fun Footer(modifier: Modifier) = Column(modifier = modifier.fillMaxWidth()) {
     }
     //コピーライト
     Column(
-        modifier = Modifier.fillMaxSize().weight(1f)
+        modifier = Modifier.fillMaxSize().height(100.dp)
             .border(1.dp, MaterialTheme.colors.onBackground, shape = RoundedCornerShape(20.dp))
     ) {
         Spacer(Modifier.weight(1f))

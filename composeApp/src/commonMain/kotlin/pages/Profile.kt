@@ -28,7 +28,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun Profile() {
     Column(
-        modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(

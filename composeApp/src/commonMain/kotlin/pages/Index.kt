@@ -26,7 +26,7 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun Index() {
     Column(
-        Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
+        Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text("arashiyama", style = MaterialTheme.typography.h1)
