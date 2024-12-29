@@ -57,13 +57,17 @@ fun LayoutBase(
     var screenWidthState by remember { mutableStateOf(screenWidth) }
     val wideMode = screenWidth > 800.dp
     var showSidebar by remember { mutableStateOf(wideMode) }
-    val scrollState2 = rememberScrollState()
-    onWindowResize {
-        val width = webWidth()?.dp ?: return@onWindowResize
-        val preWidth = screenWidthState
-        screenWidthState = width
-        if (width < preWidth && width <= 800.dp) showSidebar = false
+    val scrollState = rememberScrollState()
+
+    LaunchedEffect(Unit) {
+        onWindowResize {
+            val width = webWidth()?.dp ?: return@onWindowResize
+            val preWidth = screenWidthState
+            screenWidthState = width
+            if (width < preWidth && width <= 800.dp) showSidebar = false
+        }
     }
+
     Scaffold(modifier = Modifier.fillMaxSize().pointerInput(Unit) {
         awaitEachGesture {
             var dx = 0f
@@ -117,7 +121,7 @@ fun LayoutBase(
             }
             Column(
                 verticalArrangement = Arrangement.Top,
-                modifier = Modifier.fillMaxHeight().verticalScroll(scrollState2)
+                modifier = Modifier.fillMaxHeight().verticalScroll(scrollState)
             ) {
                 Column(
                     modifier = Modifier.padding(
@@ -153,7 +157,7 @@ fun LayoutBase(
         ) {
             Column(
                 verticalArrangement = Arrangement.Top,
-                modifier = Modifier.fillMaxHeight().verticalScroll(scrollState2)
+                modifier = Modifier.fillMaxHeight().verticalScroll(scrollState)
             ) {
                 Column(
                     modifier = Modifier
