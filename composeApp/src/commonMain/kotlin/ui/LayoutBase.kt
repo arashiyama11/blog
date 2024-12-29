@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -123,29 +122,20 @@ fun LayoutBase(
                 verticalArrangement = Arrangement.Top,
                 modifier = Modifier.fillMaxHeight().verticalScroll(scrollState)
             ) {
-                Column(
-                    modifier = Modifier.padding(
+                Box(
+                    Modifier.padding(
                         horizontal = max(
                             0.dp, min(screenWidthState / 4 - 200.dp, screenWidthState / 2 - 550.dp)
-                        ),
-                        vertical = 8.dp
-                    )
-                        .border(
-                            2.dp,
-                            MaterialTheme.colors.onBackground,
-                            shape = RoundedCornerShape(20.dp)
                         )
+                    ).border(
+                        2.dp,
+                        MaterialTheme.colors.onBackground,
+                        shape = RoundedCornerShape(20.dp)
+                    ).fillMaxSize()
+                        .heightIn(min = tools.height().dp - 300.dp - paddingValues.calculateTopPadding())
+                        .padding(vertical = 16.dp, horizontal = 32.dp)
                 ) {
-                    Row {
-                        Spacer(Modifier.fillMaxHeight().weight(1f))
-                        Box(
-                            Modifier.fillMaxHeight().weight(14f)
-                                .heightIn(min = tools.height().dp - 300.dp - paddingValues.calculateTopPadding())
-                        ) {
-                            content()
-                        }
-                        Spacer(Modifier.fillMaxHeight().weight(1f))
-                    }
+                    content()
                 }
                 Footer(
                     modifier = Modifier.fillMaxWidth().height(300.dp)
@@ -159,21 +149,15 @@ fun LayoutBase(
                 verticalArrangement = Arrangement.Top,
                 modifier = Modifier.fillMaxHeight().verticalScroll(scrollState)
             ) {
-                Column(
-                    modifier = Modifier
+                Box(
+                    Modifier
                         .border(
                             2.dp,
                             MaterialTheme.colors.onBackground,
                             shape = RoundedCornerShape(20.dp)
-                        )
+                        ).padding(vertical = 16.dp, horizontal = 16.dp)
                 ) {
-                    Row {
-                        Spacer(Modifier.fillMaxHeight().weight(1f))
-                        Box(Modifier.fillMaxHeight().weight(30f)) {
-                            content()
-                        }
-                        Spacer(Modifier.fillMaxHeight().weight(1f))
-                    }
+                    content()
                 }
                 Footer(
                     modifier = Modifier.fillMaxWidth().height(300.dp)

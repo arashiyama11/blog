@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import blog.composeapp.generated.resources.Res
@@ -40,7 +41,10 @@ fun Index() {
 Kotlinと米津玄師が好き
 Web開発,Androidアプリ開発あたりを少しやっています。
 暇なときはAtCoderで競技プログラミングしたり、機械学習周り触ってます。
-あとバドミントンやってます。""", style = MaterialTheme.typography.body1
+あとバドミントンやってます。""",
+            modifier = Modifier.fillMaxWidth(),
+            style = MaterialTheme.typography.body1,
+            textAlign = TextAlign.Start
         )
         Spacer(modifier = Modifier.height(100.dp))
 
@@ -68,7 +72,7 @@ Web開発,Androidアプリ開発あたりを少しやっています。
         }
         Spacer(modifier = Modifier.height(10.dp))
 
-        Image(painterResource(Res.drawable.dev_tools), null)
+        Image(painterResource(Res.drawable.dev_tools), null, modifier = Modifier.fillMaxWidth())
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
