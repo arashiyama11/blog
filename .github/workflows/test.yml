@@ -40,6 +40,7 @@ jobs:
 
       - name: test
         run: |
+          ./gradlew kotlinUpgradeYarnLock
           ./gradlew testDebugUnitTest
           ./gradlew testReleaseUnitTest
           ./gradlew wasmJsBrowserTest
