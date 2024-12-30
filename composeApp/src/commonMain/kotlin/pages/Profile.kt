@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
@@ -33,9 +34,11 @@ fun Profile() {
             textDecoration = TextDecoration.Underline
         )
         Spacer(Modifier.height(50.dp))
-        profileElem("Handle name", "arashiyama or kamu")
-        val birthday = LocalDate.parse("2006-02-11")
-        val age = birthday.yearsUntil(Clock.System.todayIn(TimeZone.UTC))
+        profileElem("Handle name", "arashiyama とか kamura")
+        val age = remember {
+            LocalDate.parse("2006-02-11").yearsUntil(Clock.System.todayIn(TimeZone.UTC))
+        }
+
         profileElem("Age", age.toString())
         profileElem("Birthday", "Feb 11, 2006")
         profileElem("School", "University of Tsukuba,\nCollege of Information Science")
@@ -55,31 +58,34 @@ fun Profile() {
         techStackElem("HTML,CSS", "わかんないことはわかる")
         techStackElem(
             "GoogleAppsScript",
-            "割とわかる。定期実行したいツールの作成はコレ。マジ便利。一時期ココナラで小銭稼ぎしてた"
+            "割とわかる。一時期ココナラで小銭稼ぎしてた"
         )
         techStackElem(
             "Kotlin",
-            "一番好き。素直でクセがなくて書いてて気持ちいい。全てをKotlinで書きたいと思っている"
+            "一番好き。実務経験あり。素直でクセがなくて書いてて気持ちいい。"
         )
-        techStackElem("Android dev", "わかんないけど、理解したい。Androidアプリを作る構想はある")
+        techStackElem(
+            "Android dev",
+            "実務経験あり。わかんないけど理解したい。MVVMかFluxとゆるめのCleanArchitectureで書いてきた"
+        )
         techStackElem(
             "Jetpack Compose",
-            "Multiplatform含めて結構触ってる。ModifierはCSSより素直な感じがして良い。Compose Multiplatformでこのページ書いてる。書き心地良いしDesktopツール作るならコレ使おうと思ってる"
+            "Multiplatform含めて結構触ってる。ModifierはCSSより素直な感じがして良い。Compose Multiplatformでこのページ書いてる。"
         )
         techStackElem(
             "Python",
-            "競プロと機械学習専用言語。あんま好きじゃない。再代入禁止ぐらいさせてほしい"
+            "競プロと機械学習(TensorFlow)で使用。オセロのDQNエージェントをほぼほぼ自主的にやるタイプの授業(?)で作った"
         )
 
         techStackElem(
             "Haskell",
-            "マジでわからん。高校2年生当時、関数型言語とやらに興味を持つが、2,3ヶ月で挫折。とはいえ副作用や参照透過性,遅延評価の考え方と向き合えていい経験になったと思っている"
+            "マジでわからん。関数型言語とやらに興味を持つが、2,3ヶ月で挫折。とはいえ副作用や参照透過性,遅延評価の考え方と向き合えていい経験になったと思っている"
         )
 
-        techStackElem("Git", "すこしわかる")
+        techStackElem("Git", "ゆるめのGitHub Flowで実務経験あり。")
         techStackElem(
             "GitHub",
-            "よくわかんないままActionsとか書いてる。多分このサービスの10%ぐらいは使えてる"
+            "実務経験あり。よくわかんないままActions書いたり"
         )
     }
     Spacer(modifier = Modifier.height(50.dp))

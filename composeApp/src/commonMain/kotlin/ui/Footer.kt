@@ -1,6 +1,7 @@
 package ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -11,8 +12,10 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
@@ -24,14 +27,16 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import blog.composeapp.generated.resources.GitHubMark
 import blog.composeapp.generated.resources.XMark
 import blog.composeapp.generated.resources.Res
 import blog.composeapp.generated.resources.compose_multiplatform
+import blog.composeapp.generated.resources.github_dark
 import org.jetbrains.compose.resources.painterResource
 import tools.JumpExternalPage
 import tools.kmpLocalContext
@@ -58,11 +63,11 @@ fun Footer(modifier: Modifier) = Column(modifier = modifier.fillMaxSize()) {
             }
             ExPageLink(
                 "GitHub Profile",
-                { Icon(painterResource(Res.drawable.GitHubMark), null) }
+                { Image(painterResource(Res.drawable.github_dark), null) }
             ) { jumpExternalPage("https://github.com/arashiyama11") }
             ExPageLink(
                 "This Site's Repository",
-                { Icon(painterResource(Res.drawable.GitHubMark), null) }
+                { Image(painterResource(Res.drawable.github_dark), null) }
             ) { jumpExternalPage("https://github.com/arashiyama11/blog") }
         }
         Spacer(modifier = Modifier.fillMaxHeight().weight(2f))
@@ -106,7 +111,13 @@ fun Footer(modifier: Modifier) = Column(modifier = modifier.fillMaxSize()) {
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.h6
             )
-            Image(painterResource(Res.drawable.compose_multiplatform), "compose_multiplatform")
+            Image(
+                painterResource(Res.drawable.compose_multiplatform),
+                "compose_multiplatform",
+                modifier = Modifier.size(with(
+                    LocalDensity.current
+                ) { 20.sp.toDp() }).background(Color.White, CircleShape)
+            )
         }
         Spacer(Modifier.weight(1f))
     }
