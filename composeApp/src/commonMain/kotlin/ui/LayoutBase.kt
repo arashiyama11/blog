@@ -89,7 +89,11 @@ fun LayoutBase(
             }
         }
     }, topBar = {
-        TopAppBar(modifier = Modifier.height(headerHeight)) {
+        TopAppBar(
+            modifier = Modifier.height(headerHeight).border(
+                1.dp, MaterialTheme.colors.onBackground
+            )
+        ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -126,12 +130,13 @@ fun LayoutBase(
                     Modifier.padding(
                         horizontal = max(
                             0.dp, min(screenWidthState / 4 - 200.dp, screenWidthState / 2 - 550.dp)
-                        )
-                    ).border(
-                        2.dp,
-                        MaterialTheme.colors.onBackground,
-                        shape = RoundedCornerShape(20.dp)
-                    ).fillMaxSize()
+                        ), vertical = 8.dp
+                    )
+                        .background(MaterialTheme.colors.surface).border(
+                            2.dp,
+                            MaterialTheme.colors.onBackground,
+                            shape = RoundedCornerShape(20.dp)
+                        ).fillMaxSize()
                         .heightIn(min = tools.height().dp - 300.dp - paddingValues.calculateTopPadding())
                         .padding(vertical = 16.dp, horizontal = 32.dp)
                 ) {
@@ -150,7 +155,7 @@ fun LayoutBase(
                 modifier = Modifier.fillMaxHeight().verticalScroll(scrollState)
             ) {
                 Box(
-                    Modifier
+                    Modifier.padding(8.dp).background(MaterialTheme.colors.surface)
                         .border(
                             2.dp,
                             MaterialTheme.colors.onBackground,
@@ -160,7 +165,7 @@ fun LayoutBase(
                     content()
                 }
                 Footer(
-                    modifier = Modifier.fillMaxWidth().height(300.dp)
+                    modifier = Modifier.fillMaxWidth().height(300.dp).padding(horizontal = 8.dp)
                 )
             }
             AnimatedVisibility(
