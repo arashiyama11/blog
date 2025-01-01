@@ -26,6 +26,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,6 +40,9 @@ import blog.composeapp.generated.resources.XMark
 import blog.composeapp.generated.resources.Res
 import blog.composeapp.generated.resources.compose_multiplatform
 import blog.composeapp.generated.resources.github_dark
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.painterResource
 import tools.JumpExternalPage
 import tools.kmpLocalContext
@@ -46,6 +50,7 @@ import tools.kmpLocalContext
 @Composable
 fun Footer(modifier: Modifier) = Column(modifier = modifier.fillMaxSize()) {
     val jumpExternalPage = JumpExternalPage(kmpLocalContext())
+    val year = remember { Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).year }
     Row(
         modifier = Modifier.fillMaxWidth().height(200.dp)
             .background(color = MaterialTheme.colors.surface, shape = RoundedCornerShape(20.dp))
@@ -100,7 +105,7 @@ fun Footer(modifier: Modifier) = Column(modifier = modifier.fillMaxSize()) {
             .padding(8.dp)
     ) {
         Text(
-            "Copyright © 2024 arashiyama All Rights Reserved",
+            "Copyright © $year arashiyama All Rights Reserved",
             modifier = Modifier.fillMaxWidth().wrapContentSize().weight(1f),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.h6,
