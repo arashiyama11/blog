@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -25,6 +26,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -37,6 +40,9 @@ import blog.composeapp.generated.resources.XMark
 import blog.composeapp.generated.resources.Res
 import blog.composeapp.generated.resources.compose_multiplatform
 import blog.composeapp.generated.resources.github_dark
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.painterResource
 import tools.JumpExternalPage
 import tools.kmpLocalContext
@@ -44,15 +50,16 @@ import tools.kmpLocalContext
 @Composable
 fun Footer(modifier: Modifier) = Column(modifier = modifier.fillMaxSize()) {
     val jumpExternalPage = JumpExternalPage(kmpLocalContext())
+    val year = remember { Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).year }
     Row(
         modifier = Modifier.fillMaxWidth().height(200.dp)
+            .background(color = MaterialTheme.colors.surface, shape = RoundedCornerShape(20.dp))
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colors.onBackground,
                 shape = RoundedCornerShape(20.dp)
-            )
+            ).padding(vertical = 8.dp, horizontal = 24.dp)
     ) {
-        Spacer(modifier = Modifier.fillMaxHeight().weight(1f))
         Column(
             modifier = Modifier.fillMaxHeight().weight(24f),
             verticalArrangement = Arrangement.spacedBy(6.dp)
@@ -85,31 +92,33 @@ fun Footer(modifier: Modifier) = Column(modifier = modifier.fillMaxSize()) {
             ) {
                 jumpExternalPage("https://x.com/kamu_coins")
             }
-            ExPageLink("arashiyama1120 @gmail.com",
+            ExPageLink("arashiyama${1120}@gmail.com",
                 { Icon(Icons.Default.Email, null) }
             ) {}
         }
-        Spacer(modifier = Modifier.fillMaxHeight().weight(1f))
-
     }
     //コピーライト
     Column(
         modifier = Modifier.fillMaxSize().height(100.dp)
+            .background(MaterialTheme.colors.surface, shape = RoundedCornerShape(20.dp))
             .border(1.dp, MaterialTheme.colors.onBackground, shape = RoundedCornerShape(20.dp))
+            .padding(8.dp)
     ) {
-        Spacer(Modifier.weight(1f))
         Text(
-            "Copyright © 2024 arashiyama All Rights Reserved",
-            modifier = Modifier.weight(8f).fillMaxWidth().wrapContentSize(),
+            "Copyright © $year arashiyama All Rights Reserved",
+            modifier = Modifier.fillMaxWidth().wrapContentSize().weight(1f),
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.h6
+            style = MaterialTheme.typography.h6,
         )
-        Row(modifier = Modifier.weight(8f).fillMaxWidth().wrapContentWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth().wrapContentWidth().weight(1f),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Text(
                 "Powered by Compose Multiplatform",
                 modifier = Modifier,
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.h6
+                style = MaterialTheme.typography.h6,
             )
             Image(
                 painterResource(Res.drawable.compose_multiplatform),
@@ -119,7 +128,6 @@ fun Footer(modifier: Modifier) = Column(modifier = modifier.fillMaxSize()) {
                 ) { 20.sp.toDp() }).background(Color.White, CircleShape)
             )
         }
-        Spacer(Modifier.weight(1f))
     }
 }
 
@@ -139,7 +147,7 @@ private fun ExPageLink(text: String, icon: @Composable () -> Unit, onClick: () -
     ) {
         Text(
             text,
-            fontSize = 16.sp,
+            fontSize = 14.sp,
             lineHeight = 18.sp,
             fontWeight = FontWeight.ExtraBold,
         )

@@ -11,12 +11,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.ListItem
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 
@@ -26,22 +30,25 @@ fun Sidebar(onPageChange: (Page) -> Unit) {
         modifier = Modifier.fillMaxHeight()
             .background(color = MaterialTheme.colors.secondary).width(300.dp),
         verticalArrangement = Arrangement.spacedBy(3.dp),
-        contentPadding = PaddingValues(end = 5.dp)
+        contentPadding = PaddingValues(end = 6.dp)
     ) {
-        item { sidebarLink("Home") { onPageChange(Page.INDEX) } }
-        item { sidebarLink("Profile") { onPageChange(Page.PROFILE) } }
+        item { sidebarLink("Home", { onPageChange(Page.INDEX) }) { Icon(Icons.Filled.Home, null) } }
+        item {
+            sidebarLink(
+                "Profile",
+                { onPageChange(Page.PROFILE) }) { Icon(Icons.Filled.Person, null) }
+        }
         //item { sidebarLink("Portfolio") { changePage(pageState, Page.PORTFOLIO) } }
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun sidebarLink(text: String, onClick: () -> Unit) = Text(
-    text,
-    modifier = Modifier
-        .fillMaxWidth()
-        .clickable(onClick = onClick)
-        .height(50.dp).background(MaterialTheme.colors.surface, shape = RoundedCornerShape(4.dp))
-        .wrapContentSize(),
-    textAlign = TextAlign.Center,
-    style = MaterialTheme.typography.h6
-)
+private fun sidebarLink(text: String, onClick: () -> Unit, icon: (@Composable () -> Unit)?) =
+    ListItem(
+        modifier = Modifier.fillMaxWidth().clickable(onClick = onClick).height(50.dp)
+            .wrapContentSize(),
+        icon = icon
+    ) {
+        Text(text, style = MaterialTheme.typography.h6)
+    }
